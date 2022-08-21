@@ -1,0 +1,95 @@
+syntax = "proto3";
+
+// 包名，被引用时起作用
+package auth.service.v1;
+
+
+option go_package = "api/authorization/service/v1;v1"; 
+
+
+// /auth/log   post
+// /auth/logout post
+// /auth/refresh post
+// /auth/password put
+// /auth/password/{user} put 
+// /auth/password-forgotten post
+// /auth/password-forgotten/{token} get 
+service Auth {
+    rpc Login(LoginReq) returns(LoginReply) {}
+
+    rpc Logout(LogoutReq) returns(LogoutReply) {}
+
+    rpc Refresh(RefreshReq) returns(RefreshReply) {}
+
+    rpc UpdatePassword(UpdatePasswordReq) returns(UpdatePasswordReply) {}
+    rpc UpdateUser(UpdateUserReq) returns(UpdateUserReply) {}
+
+    rpc PasswordForgotten(PasswordForgottenReq) returns(PasswordForgottenReply) {}
+    rpc PasswordForgottenTocken(PasswordForgottenTockenReq) returns(PasswordForgottenTockenReply) {}
+
+    
+}
+
+
+message LoginReq {
+    string email  = 1; 
+    string password = 2 ;
+}
+
+message LoginReply {
+    string access_tocken = 1; 
+    string tocken_type = 2;
+    int64  expires_in = 3;
+    repeated string scopes = 4;
+    string refresh_token = 5;
+    string username = 6;
+    string useremail = 7;
+    string tenant_id = 8 ;
+}
+
+message LogoutReq {}
+
+message LogoutReply{}
+
+
+
+message RefreshReq {
+    string refresh_tocken = 1;
+}
+
+message RefreshReply {
+    string access_token = 1;
+    string token_type  = 2;
+    int64  expires_in = 3;
+    repeated string scopes = 4;
+}
+
+
+message UpdatePasswordReq {
+    string password = 1;
+    string confirmation = 2;
+}
+
+message UpdatePasswordReply{}
+
+
+
+message UpdateUserReq{
+    string password = 1;
+    string confirmation = 2;
+
+}
+
+message UpdateUserReply{}
+
+message PasswordForgottenReq{
+    string username = 1;
+}
+
+message PasswordForgottenReply {}
+
+
+
+message PasswordForgottenTockenReq{}
+
+message PasswordForgottenTockenReply {}

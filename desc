@@ -1,0 +1,5 @@
+安装 protoc   protoc-gen-go  protoc-gen-go-grpc
+
+
+protoc --proto_path=.  --go_out=paths=source_relative:.  auth.proto
+protoc --proto_path=.  --go-grpc_out=paths=source_relative:. auth.proto 
