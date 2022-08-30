@@ -19,7 +19,8 @@ import (
 func initApp(logger log.Logger) *kitdemo.App {
 	auth := service.NewAuth(logger)
 	grpcServer := server.NewGrpcServer(auth)
+	httpServer := server.NewHTTPServer(auth)
 	registar := data.NewRegister()
-	app := newApp(logger, grpcServer, registar)
+	app := newApp(logger, grpcServer, httpServer, registar)
 	return app
 }

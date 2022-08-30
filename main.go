@@ -8,6 +8,7 @@ import (
 	"github.com/MrZhangjicheng/kitdemo/log"
 	"github.com/MrZhangjicheng/kitdemo/registry"
 	"github.com/MrZhangjicheng/kitdemo/transport/grpc"
+	"github.com/MrZhangjicheng/kitdemo/transport/http"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )
@@ -16,12 +17,13 @@ var (
 	Name = "auth"
 )
 
-func newApp(logger log.Logger, gs *grpc.Server, rr registry.Registar) *kitdemo.App {
+func newApp(logger log.Logger, gs *grpc.Server, hs *http.Server, rr registry.Registar) *kitdemo.App {
 	return kitdemo.New(
 		kitdemo.Name(Name),
 		kitdemo.Logger(logger),
 		kitdemo.Server(
 			gs,
+			hs,
 		),
 		kitdemo.Registar(rr),
 	)
@@ -55,4 +57,5 @@ func main() {
 	if err := app.Run(); err != nil {
 		panic(err)
 	}
+
 }
